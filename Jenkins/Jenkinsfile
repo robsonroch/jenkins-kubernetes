@@ -4,13 +4,13 @@ node('master') {
     checkout scm
 
 
-    def customImage = docker.build("jacksonlima91/forum-app:${env.BUILD_ID}")
+    def customImage = docker.build("robsonroch/forum-app:${env.BUILD_ID}")
     customImage.push()
     }
     }
     stage('Deploy'){
                 sh "docker stop app"
                 sh "docker rm app"
-                sh "docker run -d -p 9000:9000 --name=app --network=jenkins-kubernetes_webnet jacksonlima91/forum-app:${env.BUILD_ID}"         
+                sh "docker run -d -p 9000:9000 --name=app --network=jenkins-kubernetes_webnet robsonroch/forum-app:${env.BUILD_ID}"         
         }
 }
